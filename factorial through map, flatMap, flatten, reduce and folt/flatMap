@@ -6,3 +6,7 @@ def factorial(value: Int): Int = value match {
 val number = List(5)
 
 number.flatMap(value => Some(factorial(value)))
+
+//interesting 
+val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
+1 to map.size flatMap(map.get)
