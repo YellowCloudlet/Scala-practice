@@ -1,3 +1,12 @@
 val factorial = Seq(5,4,3,2,1)
 
 seq.reduce(_*_)
+
+def factorial(a: Int, b:Int): Int = (a,b) match {
+  case (0,0) => 1
+  case (a,b) => a * factorial(a-1,b-1)
+}
+
+val number = List(5,5)
+
+number.reduce(factorial)
