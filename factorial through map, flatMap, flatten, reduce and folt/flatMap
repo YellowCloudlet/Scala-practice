@@ -10,3 +10,13 @@ number.flatMap(value => Some(factorial(value)))
 //interesting 
 val map = Map(1 -> "one", 2 -> "two", 3 -> "three")
 1 to map.size flatMap(map.get)
+
+val o1 = Option(1)
+val oo1 = Option(o1)
+val ooo1 = Option(oo1)
+
+ooo1 flatMap { oo1 =>
+    oo1 flatMap { o1 =>
+        o1
+    }
+}
