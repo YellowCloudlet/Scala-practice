@@ -26,3 +26,9 @@ val x = for {
     j <- Option(4)
 } yield i * j
 //12
+val x = Option(3) flatMap { i =>
+    Option(4) map { j =>
+        i * j
+    }
+}
+//12
