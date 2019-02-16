@@ -20,3 +20,9 @@ ooo1 flatMap { oo1 =>
         o1
     }
 }
+
+val x = for {
+    i <- Option(3)
+    j <- Option(4)
+} yield i * j
+//12
