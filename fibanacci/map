@@ -5,7 +5,7 @@ val gold = (1 + sqrt(5)) / 2
 val sqrt5 = sqrt(5)
 
 def fibanacci(n: Int) = {
-  (pow(gold,n) / sqrt5).toInt
+ BigDecimal(pow(gold,n) / sqrt5).toBigInt
 }
 
 def fibBefore(n: Int) = {
@@ -15,5 +15,6 @@ def fibBefore(n: Int) = {
   println(" ")
 }
 
-val test = List(5,6,7)
+val test = List(7,6,5,4,3,2,1,0)
+
 test.map(i => fibBefore(i))
