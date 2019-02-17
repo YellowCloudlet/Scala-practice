@@ -1,6 +1,19 @@
-import scala.math.BigInt
-lazy val fibs: Stream[BigInt] = BigInt(0) #::
-                                BigInt(1) #::
-                                fibs.zip(fibs.tail).map { n => n._1 + n._2 }
+import scala.math.sqrt
+import scala.math.pow
 
-fibs take 5 foreach println
+val gold = (1 + sqrt(5)) / 2
+val sqrt5 = sqrt(5)
+
+def fibanacci(n: Int) = {
+  (pow(gold,n) / sqrt5).toInt
+}
+
+def fibBefore(n: Int) = {
+  for(i <- 0 to n - 1){
+    print(fibanacci(i) + " ")
+  }
+  println(" ")
+}
+
+val test = List(5,6,7)
+test.map(i => fibBefore(i))
