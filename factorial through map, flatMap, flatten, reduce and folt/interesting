@@ -39,3 +39,9 @@ case Nil => ""
 Running this example in the REPL yields the following result:
 scala> val fruits = "Apples" :: "Bananas" :: "Oranges" :: Nil
 fruits: List[java.lang.String] = List(Apples, Bananas, Oranges)
+/////////////////////////////////////////////////////////////////////////////////////
+def doubleif(test1: => Boolean)(test2: => Boolean)(codeBlock: => Unit) {
+if (test1 && test2) {
+codeBlock
+}
+}
