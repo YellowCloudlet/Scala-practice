@@ -1,8 +1,0 @@
-def factorial(value: Int): Int = value match {
-  case 0 => 1
-  case _ => value * factorial(value - 1)
-}
-
-val number = List(5)
-
-number.map(value => factorial(value))
