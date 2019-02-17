@@ -31,3 +31,11 @@ val x = Option(3) map { i =>
 }
 //Some(Some(12))
 /////////////////////////////////////////////////////////////////////////////////////
+//interesting recursion
+def listToString(list: List[String]): String = list match {
+case s :: rest => s + " " + listToString(rest)
+case Nil => ""
+}
+Running this example in the REPL yields the following result:
+scala> val fruits = "Apples" :: "Bananas" :: "Oranges" :: Nil
+fruits: List[java.lang.String] = List(Apples, Bananas, Oranges)
