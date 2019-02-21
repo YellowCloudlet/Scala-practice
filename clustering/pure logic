@@ -1,0 +1,35 @@
+def isElementInPair(element: Char, pair:Tuple2[Char,Char]): Boolean = {
+    pair._1.equals(element) || pair._2.equals(element)
+  }
+
+val matrix = Map[(Char,Char), Int](
+('a','b') -> 1,
+('a','c') -> 2,
+('b','c') -> 3,
+('f','c') -> 3
+)
+
+val dynamicPart = matrix.filter {
+      case (k, _) => (isElementInPair(pair_ab._1, k) || isElementInPair(pair_ab._2, k)) && !(isElementInPair(pair_ab._1, k) && isElementInPair(pair_ab._2, k))
+    }.map {
+      case (k, v) => k -> v
+    }
+
+println(dynamicPart)
+Map((a,c) -> 2, (b,c) -> 3)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+val test_pair = (("a","b"), "o")
+
+val matrix = List(
+(("a","c"), "newDistance"),
+(("b","c"), "newDistance"),
+(("a","m"), "newDistance"),
+(("b","m"), "newDistance")
+)
+
+matrix.fold(test_pair){
+ (acc,i) => {
+    if((acc._1._1+acc._1._2).contains(i._1._1)){((test_pair._1._1+test_pair._1._2,i._1._2),i._2)}
+   else{(("wrong","wrong"),i._2)}
+  }
+}
