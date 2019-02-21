@@ -33,3 +33,32 @@ matrix.fold(test_pair){
    else{(("wrong","wrong"),i._2)}
   }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+val list = List(1,2,3,4,5,6)
+
+list.foldLeft(List[Int]()){
+  (accumulator, item) =>
+  val temp = {
+    if (item%2==0) {2}
+    else if (item%3==0) {3}
+    else {0}
+  }
+  accumulator :+ temp
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class pair(val first: Int, val second: Int, val distance: Int)
+object pair {
+  def apply(first: Int, second: Int, distance: Int) = new pair(first, second, distance)
+}
+
+val pairsList = List(pair(1,1,0),pair(1,2,37),pair(1,3,27),pair(2,3,18))
+
+val pairList = pairsList.foldLeft(List[Int]()) { (accumulator, i) =>
+  val title = (i.distance%2==0) match {
+    case true => 2
+    case false => 3
+  }
+  accumulator :+ title
+}
+
+println(pairList)
