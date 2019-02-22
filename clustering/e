@@ -27,3 +27,14 @@ def myFunc(list: List[Int]): List[Int] = list.zipWithIndex.foldLeft(List.empty[I
 
 myFunc(List(1, 2, 3, 4, 5))
 myFunc(List(1, 2, 2, 4, 5))
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+val list = List(1,2,2,4,5)
+
+list.zipWithIndex.foldLeft(List.empty[Int]){
+ case (acc, (curr, idx)) => {
+    if(list lift (idx + 1) contains curr) {acc:+ 777}
+    else {acc:+ 666} 
+  }
+}
