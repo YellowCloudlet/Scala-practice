@@ -7,3 +7,23 @@ val res = list.foldLeft(List.empty[Int]) {
   case (acc, _)               => acc :+ 666
 }
 res
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+def myFunc[N: Numeric](list: List[N]): List[N] = list.zipWithIndex.foldLeft(List.empty[N]) {
+  case (acc, (curr, idx)) if list lift (idx + 1) contains curr => acc :+ implicitly[Numeric[N]].fromInt(777)
+  case (acc, _)               																 => acc :+ implicitly[Numeric[N]].fromInt(666)
+}
+
+myFunc(List(1, 2, 3, 4, 5))
+myFunc(List(1.0, 2.0, 2.0, 4.0, 5.0))
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+def myFunc(list: List[Int]): List[Int] = list.zipWithIndex.foldLeft(List.empty[Int]) {
+  case (acc, (curr, idx)) if list lift (idx + 1) contains curr => acc :+ 777
+  case (acc, _)                                                => acc :+ 666
+}
+
+myFunc(List(1, 2, 3, 4, 5))
+myFunc(List(1, 2, 2, 4, 5))
