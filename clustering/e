@@ -1,0 +1,9 @@
+java tipes
+
+val list = List[Double](Double.PositiveInfinity, 1, 2, 3, 4, 5, 6)
+
+val res = list.foldLeft(List.empty[Int]) {
+  case (acc, i) if i == i + 1 => acc :+ 777
+  case (acc, _)               => acc :+ 666
+}
+res
