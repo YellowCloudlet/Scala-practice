@@ -62,3 +62,22 @@ val pairList = pairsList.foldLeft(List[Int]()) { (accumulator, i) =>
 }
 
 println(pairList)
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class pair(val first: String, val second: String, val distance: Double)
+object pair {
+  def apply(first: String, second: String, distance: Double) = new pair(first, second, distance)
+}
+
+val pairsList = List(pair("a","c",0.134),pair("b","c",0.97),pair("a","m",0.19),pair("b","m",0.553))
+
+val pairList = pairsList.foldLeft(List[(pair,String)]()) { (accumulator, i) =>
+  val title = (i.distance<0.5) match {
+    case true => "true"
+    case false => "false"
+  }
+  accumulator :+ (i,title)
+}
+
+println(s"The result list after fold method is: \n $pairList \n and the distance of 1rst element in this list is: \n ${pairList(0)._1.distance}")
