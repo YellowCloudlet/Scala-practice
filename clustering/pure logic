@@ -81,3 +81,29 @@ val pairList = pairsList.foldLeft(List[(pair,String)]()) { (accumulator, i) =>
 }
 
 println(s"The result list after fold method is: \n $pairList \n and the distance of 1rst element in this list is: \n ${pairList(0)._1.distance}")
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+val list = List(("a","a"),("a","c"),("b","c"),("a","d"),("b","d"))
+
+val choosen_Pair = ("a","b")
+
+//def isElInPair():Boolean
+
+list.zipWithIndex.foldLeft(List.empty[(String,String)]){
+ case (acc, (curr, idx)) => {
+    if(list.lift(idx).getOrElse(("0","0"))._2==list.lift(idx+1).getOrElse(("0","0"))._2) {acc:+ (curr._1+list.lift(idx+1).getOrElse(("0","0"))._1,curr._2)}
+    else {acc:+ ("||","||")} 
+  }
+}.filter{
+  case element => {
+    if (element._1== "||" ) {false}
+    else {true}
+  }
+}
+
+/*val deff = list.filter{
+  case el => {
+    if(el._)
+  }
+}*/
