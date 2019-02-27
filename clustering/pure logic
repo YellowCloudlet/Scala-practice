@@ -83,7 +83,7 @@ val pairList = pairsList.foldLeft(List[(pair,String)]()) { (accumulator, i) =>
 println(s"The result list after fold method is: \n $pairList \n and the distance of 1rst element in this list is: \n ${pairList(0)._1.distance}")
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//логика самой динамической части, добавить так же дистанции в коефициенты и возможно сделать метод рекурсивным
 val list = List(("a","a"),("a","c"),("b","c"),("a","d"),("b","d"))
 
 val choosen_Pair = ("a","b")
@@ -107,3 +107,30 @@ list.zipWithIndex.foldLeft(List.empty[(String,String)]){
     if(el._)
   }
 }*/
+
+__________________________________________________________________________________________________________________________
+
+import scala.collection.mutable.LinkedHashMap
+
+def isElementInPair(element: String, pair:Tuple2[String,String]): Boolean = {
+    pair._1.equals(element) || pair._2.equals(element)
+  }
+
+val pair_ab = ("a","b")
+
+val matrix = LinkedHashMap[(String, String), Double](
+  ("a","b")	 -> 	0.1,
+  ("a","c")	 -> 	0.2,
+  ("b","c")	 -> 	0.3,
+  ("fff","kkk")	->	0.6,
+  ("qqq","ggg")	->	0.73,
+  ("a","d")	->	0.18,
+  ("b","d")	->	0.19
+)
+
+val dynamicPart = matrix.filter {
+      case (k, v) => (isElementInPair(pair_ab._1, k) || isElementInPair(pair_ab._2, k)) && !(isElementInPair(pair_ab._1, k) && isElementInPair(pair_ab._2, k))
+    }
+
+
+println(dynamicPart)
