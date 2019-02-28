@@ -134,3 +134,61 @@ val dynamicPart = matrix.filter {
 
 
 println(dynamicPart)
+
+_____________________________________________________________________________________________________________________________
+
+val test_list = List(("a","b",0.1),("a","c",0.29),("b","c",0.34),("a","d",0.85),("b","d",0.12),("c","d",0.51))
+val choosenPair = ("a","b",0.1)
+val dynamical_Part = test_list.filter{
+  case element => {
+    if(isElementInPairDYN(element)) {true}
+    else {false}
+  }
+}
+
+val static_Part = test_list.filter{
+  case element => {
+    if(isElementInPairSTAT(element)) {true}
+    else {false}
+  }
+} 
+
+val result_Part = dynamicalPart ++ static_Part
+
+println(dynamical_Part)
+println(static_Part)
+
+def isElementInPairDYN(element: (String,String,Double)): Boolean = {
+  	(choosenPair._1.contains(element._1) || choosenPair._2.contains(element._1)) && !(element._1 == choosenPair._1 && element._2 == choosenPair._2)
+  }
+
+def isElementInPairSTAT(element: (String,String,Double)): Boolean = {
+  	!(choosenPair._1.contains(element._1) || choosenPair._2.contains(element._1)) && !(element._1 == choosenPair._1 && element._2 == choosenPair._2)
+  }
+
+def newDistance(ac: Option[Tuple3[String,String,Double]], bc: Option[Tuple3[String,String,Double]]): Double = {
+  lazy val ac_v = ac.getOrElse(("0","0",0.0))
+  lazy val bc_v = bc.getOrElse(("0","0",0.0))
+  lazy val acDistance: Double = ac_v._3
+  lazy val bcDistance: Double = bc_v._3
+  lazy val screamer_1: Int = ac_v._1.size
+	lazy val screamer_2: Int =	bc_v._1.size
+  lazy val Distance: Double = (acDistance + bcDistance) / (screamer_1 + screamer_2)
+  Distance
+}
+
+lazy val dynamicalPart = dynamical_Part.zipWithIndex.foldLeft(List.empty[(String,String,Double)]){
+ case (acc, (curr, idx)) => {
+    if(dynamical_Part.lift(idx).getOrElse(("0","0",0.0))._2==dynamical_Part.lift(idx+1).getOrElse(("0","0",0.0))._2) {acc:+ ((curr._1+dynamical_Part.lift(idx+1).getOrElse(("0","0",0.0))._1),curr._2,
+          newDistance(dynamical_Part.lift(idx),dynamical_Part.lift(idx+1)) )}                                                                                                   
+  	else {acc:+ ("||","||",0.0)} 
+  }
+}.filter{
+  case element => {
+    if (element._1== "||" ) {false}
+    else {true}
+  }
+}
+
+if(result_Part.isEmpty) {println(s"Clustering is finished: $test_list")}
+else {println(s"The result matrix after 1 iteration is: $result_Part ")}
