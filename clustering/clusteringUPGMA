@@ -12,7 +12,7 @@ lazy val listOfPairDistances = Set()
   var TEMPlistOf_NEW_Elements: Set[String] = Set("0")
   var nextStep = 0
 
-val accuracy: Int => Int = n => {
+final lazy val accuracy: Int => Int = n => {
   if(n.equals(1)){
     0
   }
