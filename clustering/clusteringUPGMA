@@ -1,6 +1,13 @@
-lazy val listOfElements = Set()
+lazy val listOfElements = Set("A","B","C","D","E","F","G")
 
-lazy val listOfPairDistances = Set()
+lazy val listOfPairDistances = Set(
+        ("A","B",1.0), ("A","C",1.4), ("A","D",4.0), ("A","E",4.5), ("A","F",4.0), ("A","G",3.9),
+        ("B","C",1.0), ("B","D",4.0), ("B","E",4.5), ("B","F",3.6), ("B","G",3.4),
+        ("C","D",3.0), ("C","E",3.6), ("C","F",2.7), ("C","G",2.5),
+        ("D","E",0.5), ("D","F",1.6), ("D","G",2.2),
+        ("E","F",1.9), ("E","G",2.5),
+        ("F","G",0.7)
+      )
 
   var choosenPair: Tuple3[String, String, Double] = ("0","0",0.0)
   var dynamical_Part: Set[Tuple3[String, String, Double]] = Set(("0","0",0.0))
@@ -21,12 +28,9 @@ final lazy val accuracy: Int => Int = n => {
   }
 }
 
-def clusteringUPGMA(setOfPairs: Set[(String, String, Double)], setOfElements: Set[String], step: Int = 1): Set[String] = (setOfElements.size > accuracy(0)) match {  
+def clusteringUPGMA(setOfPairs: Set[(String, String, Double)], setOfElements: Set[String], clusters: Int, step: Int = 1): Set[String] = (setOfElements.size > accuracy(clusters)) match {  
 case false => {
-println(s"_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
-println(s"clustering step is: |${step}|")
-println(s"setOfPairs is: ${setOfPairs}")
-println(s"setOfElements is: ${setOfElements}")
+  setOfElements
 }
 case true => {
   
@@ -93,18 +97,8 @@ result_Part = static_Part ++ new_dynamical_Part
 
 TEMPlistOf_NEW_Elements = listOf_NEW_Elements ++ Set(newElement)
 
-println(s"_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
-println(s"clustering step is: |${step}|")
-println(s"setOfElements is: ${setOfElements}")
-println(s"DYN_part is: ${dynamical_Part}")
-println(s"STAT_part is: ${static_Part}")
-println(s"newElement is: ${newElement}")
-println(s"new_dynamical_Part is: ${new_dynamical_Part}")
-println(s"result_Part after 1 cluster iteration is: ${result_Part}")
-println(s"listOf_NEW_Elements is: ${listOf_NEW_Elements}")
-println(s"TEMPlistOf_NEW_Elements is: ${TEMPlistOf_NEW_Elements}")}
-//------------------------------------------------------------------
-clusteringUPGMA(result_Part,TEMPlistOf_NEW_Elements,nextStep)
+clusteringUPGMA(result_Part,TEMPlistOf_NEW_Elements,clusters,nextStep)
+}
 }
 
-clusteringUPGMA(listOfPairDistances,listOfElements)
+clusteringUPGMA(listOfPairDistances,listOfElements, 3)
