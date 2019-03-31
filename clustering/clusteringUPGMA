@@ -21,7 +21,7 @@ final lazy val accuracy: Int => Int = n => {
   }
 }
 
-def clusteringUPGMA(setOfPairs: Set[(String, String, Double)], setOfElements: Set[String], step: Int = 1): Unit = (setOfElements.size > accuracy(0)) match {  
+def clusteringUPGMA(setOfPairs: Set[(String, String, Double)], setOfElements: Set[String], step: Int = 1): Set[String] = (setOfElements.size > accuracy(0)) match {  
 case false => {
 println(s"_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_")
 println(s"clustering step is: |${step}|")
