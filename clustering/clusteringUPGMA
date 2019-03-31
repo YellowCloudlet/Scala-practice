@@ -13,11 +13,11 @@ lazy val listOfPairDistances = Set()
   var nextStep = 0
 
 final lazy val accuracy: Int => Int = n => {
-  if(n.equals(1)){
-    0
+  if(n.equals(1) || n.equals(0)){
+    1
   }
   else{
-    n
+    math.abs(n)
   }
 }
 
