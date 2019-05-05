@@ -1,0 +1,23 @@
+abstract class Acceptable[T]{
+  def body: Option[T]
+}
+
+trait Message extends Acceptable[String]{
+  def check(body: Option[String]): Boolean = {
+    if (body.isEmpty) false
+    else true
+  } 
+}
+
+case class messageProjection(body: Option[String] = None,
+                          	 id: Option[Long] = None,
+                          	 access: Boolean) extends Message 
+
+val testMessage = new messageProjection(
+  Some("This is the body of the message"),
+  Some(777),
+  true
+)
+
+testMessage.check(testMessage.body)
+testMessage.access
