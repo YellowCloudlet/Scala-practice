@@ -11,7 +11,7 @@ trait Message extends Acceptable[String]{
 
 case class messageProjection(body: Option[String] = None,
                           	 id: Option[Long] = None,
-                          	 access: Boolean) extends Message 
+                          	 access: Boolean = false) extends Message 
 
 val testMessage = new messageProjection(
   Some("This is the body of the message"),
@@ -20,4 +20,5 @@ val testMessage = new messageProjection(
 )
 
 testMessage.check(testMessage.body)
+testMessage.id
 testMessage.access
