@@ -1,7 +1,0 @@
-implicit val helper: Int = 7
-
-def multiply(implicit helper: Int) = {
-  helper
-  }
-  
-multiply
