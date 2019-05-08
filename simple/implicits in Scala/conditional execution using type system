@@ -1,0 +1,16 @@
+trait TypeTransformer[A, B] {
+  def transformation(from: A) : B
+}
+
+def typeTransformation[fT,tT](from: fT)(implicit transformer: TypeTransformer[fT,tT]) = transformer.transformation(from)
+
+implicit val fromITS: TypeTransformer[Int,String] = new TypeTransformer[Int,String]{
+  def transformation(integer: Int): String = integer.toString
+}
+
+implicit val fromSTI: TypeTransformer[String,Int] = new TypeTransformer[String,Int]{
+  def transformation(string: String): Int = string.toInt
+}
+
+typeTransformation(27)
+typeTransformation("27")
