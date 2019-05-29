@@ -1,0 +1,43 @@
+import akka.actor._
+
+case object HelloMessage
+case object StartMessage
+case object StopMessage
+
+class Man(woman: ActorRef, name: String) extends Actor {
+  var count = 0
+  def incrementAndPrint { count += 1; println(s"man incrementAndPrint + ${name}") }
+  def receive = {
+    case StartMessage =>
+        incrementAndPrint
+        woman ! HelloMessage
+    case HelloMessage => 
+        incrementAndPrint
+        if (count > 99) {
+          sender ! StopMessage
+          println("man stopped")
+          context.stop(self)
+        } else {
+          sender ! HelloMessage
+        }
+  }
+}
+
+class Woman extends Actor {
+  def receive = {
+    case HelloMessage =>
+        println("woman TestMessage received")
+        sender ! HelloMessage
+    case StopMessage =>
+        println("woman stopped")
+        context.stop(self)
+  }
+}
+
+object ManWomanTest extends App {
+  val system = ActorSystem("ManWomanSystem")
+  val woman = system.actorOf(Props[Woman], name = "woman")
+  val man = system.actorOf(Props(new Man(woman,"Harry")), name = "man")
+  // start them going
+  man ! StartMessage
+}
