@@ -21,3 +21,41 @@ behavior.speak(something)
 
 makeHumanOrGodSpeak(God("Universe"))
 makeHumanOrGodSpeak(Human("Adam"))
+
+__________________________________________________________________________________
+________________But some individuals write type classes/traits as:________________
+
+trait BinaryFormat[T] {
+  def asBinary(entity: T): Unit
+}
+
+trait Foo {}
+
+object Foo {
+  implicit lazy val binaryFormat: BinaryFormat[Foo] = new BinaryFormat[Foo] {
+    def asBinary(entity: Foo) = {
+      val temp = 's'.toByte
+      println(temp)
+    }
+  }
+}
+
+trait Doo {}
+
+object Doo {
+  implicit lazy val binaryFormat: BinaryFormat[Doo] = new BinaryFormat[Doo] {
+    def asBinary(entity: Doo) = {
+      val temp = 'a'.toByte
+      println(temp)
+    }
+  }
+}
+
+def test[T](something: T)(implicit value: BinaryFormat[T]) {
+  value.asBinary(something)
+}
+
+val value1: Foo = new Foo {}
+val value2: Doo = new Doo {}
+test(value1)
+test(value2)
