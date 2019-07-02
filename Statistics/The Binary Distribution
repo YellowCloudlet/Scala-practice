@@ -1,0 +1,10 @@
+def factorial(value: Int): Int = value match {
+  case 0 => 1
+  case _ => value * factorial(value - 1)
+}
+
+def pow(x: Double, n: Double) = scala.math.pow(x, n)
+
+def binaryDistribution(x: Int, n: Int, p: Double): Double = {
+  (factorial(n) / factorial(x) * factorial(n-x)) * pow(p, x) * pow((1-p), (n-x))
+}
