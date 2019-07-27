@@ -1,0 +1,104 @@
+lazy val listOfElements = Set("A","B","C","D","E","F","G")
+
+lazy val listOfPairDistances = Set(
+        ("A","B",1.0), ("A","C",1.4), ("A","D",4.0), ("A","E",4.5), ("A","F",4.0), ("A","G",3.9),
+        ("B","C",1.0), ("B","D",4.0), ("B","E",4.5), ("B","F",3.6), ("B","G",3.4),
+        ("C","D",3.0), ("C","E",3.6), ("C","F",2.7), ("C","G",2.5),
+        ("D","E",0.5), ("D","F",1.6), ("D","G",2.2),
+        ("E","F",1.9), ("E","G",2.5),
+        ("F","G",0.7)
+      )
+
+  var choosenPair: Tuple3[String, String, Double] = ("0","0",0.0)
+  var dynamical_Part: Set[Tuple3[String, String, Double]] = Set(("0","0",0.0))
+  var static_Part: Set[Tuple3[String, String, Double]] = Set(("0","0",0.0))
+  var listOf_NEW_Elements: Set[String] = Set("0")
+  var newElement: String = "0"
+  var new_dynamical_Part: Set[Tuple3[String,String,Double]] = Set(("0","0",0.0))
+  var result_Part: Set[Tuple3[String,String,Double]] = Set(("0","0",0.0))
+  var TEMPlistOf_NEW_Elements: Set[String] = Set("0")
+  var nextStep = 0
+
+final lazy val accuracy: Int => Int = n => {
+  if(n.equals(1) || n.equals(0)){
+    1
+  }
+  else{
+    math.abs(n)
+  }
+}
+
+def clusteringUPGMA(setOfPairs: Set[(String, String, Double)], setOfElements: Set[String], clusters: Int, step: Int = 1): Set[String] = (setOfElements.size > accuracy(clusters)) match {  
+case false => {
+  setOfElements
+}
+case true => {
+  
+choosenPair = findMin(setOfPairs)
+nextStep = step + 1  
+  
+def findMin(set: Set[(String,String,Double)]): (String,String,Double) = {
+  set.minBy(_._3)
+}  
+
+def isElementInPair(test_element: (String,String,Double)): Boolean = {
+    (choosenPair._1.contains(test_element._1) || 
+     choosenPair._1.contains(test_element._2) || 
+     choosenPair._2.contains(test_element._1) || 
+     choosenPair._2.contains(test_element._2))
+  }
+
+dynamical_Part = setOfPairs.filter{
+  element => {
+    if(isElementInPair(element)) {true}
+    else {false}
+  }
+}
+
+static_Part = setOfPairs.filter{
+  element => {
+    if(isElementInPair(element)) {false}
+    else {true}
+  }
+}
+
+listOf_NEW_Elements = setOfElements.filter{
+  element => {
+    if(element != choosenPair._1 && element != choosenPair._2){true}
+    else{false}
+  }
+}
+
+newElement = choosenPair._1 + choosenPair._2
+
+def newDistance(distance1: Double, distance2: Double): Double = {
+  lazy val Distance: Double = distance1/2 + distance2/2
+  Distance
+}
+
+def find(set: Set[(String,String,Double)], pair: Tuple2[String,String]) = set.filter{
+  element => {
+    if(element._1.equals(pair._1) && element._2.equals(pair._2) || element._1.equals(pair._2) && element._2.equals(pair._1)){true}
+    else{false}
+  }
+}.head._3
+
+
+new_dynamical_Part = listOf_NEW_Elements.foldLeft(List.empty[(String,String,Double)]){
+  case (acc, element) => {
+    val temp_ac_dis: Double = find(dynamical_Part, (element, choosenPair._1))
+    val temp_bc_dis: Double = find(dynamical_Part, (element, choosenPair._2))
+    val createdElement = (element, newElement, newDistance(temp_ac_dis, temp_bc_dis))
+    acc :+ createdElement  
+  } 
+}.toSet
+
+result_Part = static_Part ++ new_dynamical_Part
+
+TEMPlistOf_NEW_Elements = listOf_NEW_Elements ++ Set(newElement)
+
+clusteringUPGMA(result_Part,TEMPlistOf_NEW_Elements,clusters,nextStep)
+}
+}
+
+clusteringUPGMA(listOfPairDistances,listOfElements, 3)
