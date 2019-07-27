@@ -1,0 +1,11 @@
+class Element(value: Int) {
+  def echo: Int = value
+}
+
+implicit class ElementImprovements(e: Element) {
+ def new_echo = e.echo * 2
+}
+
+val testElement = new Element(21)
+testElement.echo
+testElement.new_echo
