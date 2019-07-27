@@ -5,3 +5,8 @@
 
 val test = (i: Int) => {i * 2}
 test(2)
+
+//or one more variant
+// "=>" means transformer, so Int transformed as Int = n, where n transformed as n * 2
+val test2: Int => Int = n => {n * 2}  
+test2(2)
