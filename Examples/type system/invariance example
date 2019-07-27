@@ -1,0 +1,31 @@
+//
+class God
+class Angel extends God
+class Human extends Angel
+class Animal extends Human
+
+class InvariantClass[A]						// А = А без 
+class CovariantClass[+A]	    		// can accept everything but not higher than it set
+class ContravariantClass[-A]			// can accept everything but not lower than it set
+
+class VarianceExamples 
+{
+def invarMethod(x: InvariantClass[Human]) {}						// method that accepts x of type InvariantClass[Human]
+def covarMethod(x: CovariantClass[Human]) {}						// method that accepts x of type CovariantClass[Human]
+def contraMethod(x: ContravariantClass[Human]) {}				// method that accepts x of type ContravariantClass[Human]
+  
+invarMethod(new InvariantClass[Human])
+  // invarMethod(new InvariantClass[God]) 	  wrong
+  // invarMethod(new InvariantClass[Angel])	  wrong
+  // invarMethod(new InvariantClass[Animal])	wrong
+
+covarMethod(new CovariantClass[Human])
+covarMethod(new CovariantClass[Animal])
+  // covarMethod(new CovariantClass[Angel])	  wrong
+  // covarMethod(new CovariantClass[God])	    wrong
+
+contraMethod(new ContravariantClass[God])
+contraMethod(new ContravariantClass[Angel])
+contraMethod(new ContravariantClass[Human])
+  // contraMethod(new ContravariantClass[Animal])	wrong
+}
