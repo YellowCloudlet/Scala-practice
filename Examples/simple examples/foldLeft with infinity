@@ -1,7 +1,0 @@
-val list = List[Double](Double.PositiveInfinity, 1)
-
-val res = list.foldLeft(List.empty[Int]) {
-  case (acc, i) if i == i + 1 => acc :+ 1
-  case (acc, _)               => acc :+ 0
-}
-res

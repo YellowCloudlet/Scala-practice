@@ -1,0 +1,17 @@
+//oldLeft with infinity
+val list = List[Double](Double.PositiveInfinity, 1)
+val res = list.foldLeft(List.empty[Int]) {
+  case (acc, i) if i == i + 1 => acc :+ 1
+  case (acc, _)               => acc :+ 0
+}
+res
+
+#**************************************************
+
+//check if next element in list is equal to current element
+def check[N: Numeric](list: List[N]): List[N] = list.zipWithIndex.foldLeft(List.empty[N]) {
+  case (acc, (current, idx)) if list lift (idx + 1) contains current => acc :+ implicitly[Numeric[N]].fromInt(1)
+  case (acc, _)               								   							       => acc :+ implicitly[Numeric[N]].fromInt(0)
+}
+check(List(1, 2, 3, 4, 5))
+check(List(1.0, 2.0, 2.0, 4.0, 5.0))
