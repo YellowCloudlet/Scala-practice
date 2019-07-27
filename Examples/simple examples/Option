@@ -7,3 +7,25 @@ ooo1 flatMap { oo1 =>
     }
 }
 //Some(1)
+
+#**************************************************
+
+val x = for {
+    i <- Option(3)
+    j <- Option(4)
+} yield i * j
+//12
+
+val x = Option(3) flatMap { i =>
+    Option(4) map { j =>
+        i * j
+    }
+}
+//12
+
+val x = Option(3) map { i =>
+    Option(4) map { j =>
+        i * j
+    }
+}
+//Some(Some(12))
