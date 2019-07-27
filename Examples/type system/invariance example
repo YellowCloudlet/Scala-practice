@@ -1,4 +1,4 @@
-//
+//works fine for implicit too
 class God
 class Angel extends God
 class Human extends Angel
