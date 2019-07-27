@@ -3,3 +3,8 @@
 combination with a collection, you’re building and returning a new collection, but when
 you use a for loop without yield , you’re just operating on each element in the collection
 —you’re not creating a new collection.
+-> Adding yield to a for loop essentially places the result from each loop iteration into a
+temporary holding area. When the loop completes, all of the elements in the holding
+area are returned as a single collection. 
+-> The map method has an implicit loop, and in that loop, it passes one
+Char at a time to the algorithm it’s given.
