@@ -31,7 +31,7 @@ object BecomeHulkExample extends App {
 
     val davidBanner = system.actorOf(Props[DavidBanner], name = "DavidBanner")
 
-    davidBanner ! ActNormalMessage // init to normalState
+    davidBanner ! ActNormalMessage //initialize to normalState
   	davidBanner ! ActNormalMessage
     davidBanner ! TryToFindSolution
     davidBanner ! BadGuysMakeMeAngry
