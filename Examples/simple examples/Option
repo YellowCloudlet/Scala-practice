@@ -1,0 +1,9 @@
+val o1 = Option(1)
+val oo1 = Option(o1)
+val ooo1 = Option(oo1)
+ooo1 flatMap { oo1 =>
+    oo1 flatMap { o1 =>
+        o1
+    }
+}
+//Some(1)
