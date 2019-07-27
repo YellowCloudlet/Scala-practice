@@ -1,0 +1,5 @@
+-> infinity + anything in java does not give an overloaded stack
+-> An important lesson from the for loop examples is that when you use the for / yield
+combination with a collection, you’re building and returning a new collection, but when
+you use a for loop without yield , you’re just operating on each element in the collection
+—you’re not creating a new collection.
