@@ -8,5 +8,8 @@ test(2)
 
 //or one more variant
 // "=>" means transformer, so Int transformed as Int = n, where n transformed as n * 2
+// so test2 value of Int type is going to have a parameter of type Int(or type Int which is a container by the way) 
+//which is being named "n" and is equal to {n * 2}
+
 val test2: Int => Int = n => {n * 2}  
 test2(2)
