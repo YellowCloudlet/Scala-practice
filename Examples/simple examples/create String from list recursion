@@ -1,0 +1,8 @@
+def listToString(list: List[String]): String = list match {
+case s :: rest => s + " " + listToString(rest)
+case Nil => ""
+}
+
+val test = List("a","b","c")
+
+listToString(test)
