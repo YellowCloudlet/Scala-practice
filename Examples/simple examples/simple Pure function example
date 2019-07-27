@@ -1,0 +1,18 @@
+def pureFunction(name : String) = s"My name is $name"
+def impureFunction(name : String) = println(s"My name is $name")
+
+A function f is pure if the expression f(x) is referentially transparent for all referentially transparent values x.
+With no side effects!
+
+I/O Monad isn't referentially transparent on its's own, because it changes the output type. (String -> Unit in example code)
+But it is pure in it's nature meaning.
+
+def actionOne: Double = 0.0 + 1.0
+def actionTwo: Double = 0.0 - 1.0
+
+def pureFunction = {
+  def temp = actionOne + actionTwo
+  temp
+}
+
+pureFunction
