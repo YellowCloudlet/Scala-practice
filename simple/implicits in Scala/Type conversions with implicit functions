@@ -1,7 +1,0 @@
-import scala.language.implicitConversions
-
-implicit def helper(value: Int): String = value.toString
-
-def someFunction(value: String): String = value
-
-someFunction(27)
