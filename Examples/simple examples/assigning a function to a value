@@ -13,3 +13,10 @@ test(2)
 
 val test2: Int => Int = n => {n * 2}  
 test2(2)
+
+//and here is another one:
+val error: (Double, Double, Double, Double, Double) => Double = new Function5[Double,Double,Double,Double,Double,Double]{
+  	def apply(e1: Double, e2: Double, e3: Double, e4: Double, e5: Double) = {
+      e1 * e1 + e2 * e2 + e3 * e3 + e4 * e4 + e5 * e5
+    }
+} 
