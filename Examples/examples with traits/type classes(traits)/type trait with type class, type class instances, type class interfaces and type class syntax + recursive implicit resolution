@@ -1,0 +1,53 @@
+import BehaviorInstances._
+import BehaviorInterface._
+import BehaviorSyntax._
+
+trait All
+final case class Photon(description: String) extends All
+final case class Proton(description: String) extends All
+
+trait Behavior[T]{
+  def show(what: T): String	
+}
+	
+object BehaviorInstances {							
+  implicit val photon: Behavior[Photon] = new Behavior[Photon] {
+    def show(what: Photon): String = {
+      what.description+"_it is a photon"
+    }
+  }
+  implicit val proton: Behavior[Proton] = new Behavior[Proton] {
+    def show(what: Proton): String = {
+      what.description+"_it is a proton"
+    }
+  }
+}
+
+object BehaviorInterface {
+  def useDescription[A](value: A)(implicit b: Behavior[A]): String = {
+    b.show(value)+"_interface"
+  } 
+  
+  implicit def optionBehavior[A](implicit b: Behavior[A]): Behavior[Option[A]] =
+    new Behavior[Option[A]] {
+      def show(option: Option[A]): String =
+        option match {
+          case Some(aValue) => b.show(aValue)+"_in option"
+          case None         => "All"
+      }
+    }
+}
+
+object BehaviorSyntax {
+	implicit class BehaviorOps[A](value: A) {
+  	def useDescription(implicit w: Behavior[A]): String =
+    	w.show(value)+"_syntax"
+  }
+}
+
+println(BehaviorInstances.photon.show(Photon("10")))
+println(BehaviorInstances.proton.show(Proton("10")))
+println(BehaviorInterface.useDescription(Photon("10")))
+println(Photon("10").useDescription)
+println(implicitly[Behavior[Photon]].show(Photon("10")))
+BehaviorInterface.useDescription(Option(Photon("10")))
