@@ -1,3 +1,6 @@
 * type classes variant 1
 * type classes variant 2
-* type trait with type class, type class instances, type class interfaces and type class syntax + recursive implicit resolution
+* type trait with type class, 
+  type class instances, 
+  type class interfaces and type class syntax 
+  + recursive implicit resolution
