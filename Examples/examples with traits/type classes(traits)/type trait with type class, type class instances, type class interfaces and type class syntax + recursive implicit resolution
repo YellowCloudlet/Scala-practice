@@ -40,8 +40,8 @@ object BehaviorInterface {
 
 object BehaviorSyntax {
 	implicit class BehaviorOps[A](value: A) {
-  	def useDescription(implicit w: Behavior[A]): String =
-    	w.show(value)+"_syntax"
+  	def useDescription(implicit b: Behavior[A]): String =
+    	b.show(value)+"_syntax"
   }
 }
 
