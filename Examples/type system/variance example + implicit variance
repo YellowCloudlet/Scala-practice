@@ -29,3 +29,10 @@ contraMethod(new ContravariantClass[Angel])
 contraMethod(new ContravariantClass[Human])
   // contraMethod(new ContravariantClass[Animal]) wrong
 }
+
+implicit val testValue = new CovariantClass[Animal]
+def method(implicit value: CovariantClass[Human]) {println("working")}
+method
+
+def method2[A <: CovariantClass[Human]](implicit value: A){println("holy shit")}
+method2
