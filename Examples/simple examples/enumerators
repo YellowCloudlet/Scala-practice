@@ -2,7 +2,6 @@ object Test extends Enumeration {
   protected case class testVal(x: Int, y: Int) extends super.Val{
     def testFunc: Double = Test.mult * x / (y * y)
   }
- import scala.language.implicitConversions
   val mult: Double = 0
   val SomeValue = testVal(12, 3)
 }  
