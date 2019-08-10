@@ -1,2 +1,2 @@
-# scala
+# Scala
 Repository for Scala practice
