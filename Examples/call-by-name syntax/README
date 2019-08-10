@@ -1,0 +1,5 @@
+# Call-by-name syntax is the same as passing function as a parameter but with no defined type.
+For example, when we want to pass a function as a parameter to other functions we may write something like this:
+def functionTo(function: (Int) => Int): Int, or:
+def functionTo(function: Int => Int): Int. But if we want to write more general code we can rewrite it as:
+def functionTo(function: => Int): Int - This means call-by-name syntax when we don't use any type definition like (Int) or Int.
