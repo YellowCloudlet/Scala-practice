@@ -1,0 +1,13 @@
+class A
+class B extends A
+class C extends B
+
+class Wrapper[+T]{
+  def wrapper = println("wrapped")
+}
+
+def function(x: Wrapper[_ >: A]) = x
+
+function(new Wrapper[A]).wrapper
+function(new Wrapper[B]).wrapper
+function(new Wrapper[C]).wrapper
