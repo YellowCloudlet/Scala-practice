@@ -1,0 +1,13 @@
+trait All[A]{
+  def encode(value: A): Information 
+  def decode(value: Information): A 
+  def convert[B](dec: A => B, enc: B => A) = { 
+    val self = this
+    new All[B]{
+      def encode(value: B): Information = self.encode(enc(value))							
+      def decode(value: Information): B =	dec(self.decode(value))								
+    }
+  }
+}
+
+trait Information 
