@@ -1,0 +1,36 @@
+import scala.language.implicitConversions
+
+trait Codec[A]{
+  def encode(value: A): Information 	
+  def decode(value: Information): A 	
+  def imap[B](enc: B => A, dec: A => B) = { 	
+    val self = this
+    new Codec[B]{
+      def encode(value: B): Information = self.encode(enc(value))								
+      def decode(value: Information): B =	dec(self.decode(value))							
+    }			
+  }
+}
+
+def encode[A](value: A)(implicit c: Codec[A]): Information = c.encode(value)
+def decode[A](value: Information)(implicit c: Codec[A]): A = c.decode(value)
+
+trait Information
+case class process(body: Information)
+case class result(body: Information) 
+
+def resultToProcess(r: result): process = process(r.body)	
+def processToResult(p: process): result = result(p.body)
+
+implicit val processCodec: Codec[process] = new Codec[process] {
+	def encode(value: process): Information = value.body
+	def decode(value: Information): process = process(value)
+}
+
+// if we want to inherit processCodec we can create a new Codec with imap function
+// implicit val resultCodec: Codec[result] = processCodec.imap[result](resultToProcess(_), processToResult(_))
+
+implicit val resultCodec: Codec[result] = new Codec[result] {
+  def encode(value: result): Information = value.body
+  def decode(value: Information): result = result(value)
+}
