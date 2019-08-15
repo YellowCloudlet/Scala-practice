@@ -1,0 +1,128 @@
+// Start writing your ScalaFiddle code here
+// Fiddle.draw.fillStyle = "black"
+// Fiddle.draw.fillRect(0, 0, Fiddle.canvas.width, Fiddle.canvas.height)
+// Fiddle.draw.clearRect(0, 0, Fiddle.canvas.width, Fiddle.canvas.height)
+
+import Fiddle.draw._
+
+def color(color: String) = { Fiddle.draw.fillStyle = color }
+val rnd = new scala.util.Random
+
+abstract class Observable
+
+class Creature(x: Int,
+               y: Int, 
+               reproductive: Boolean, 
+               ilnesses: Boolean,
+               Group: String) extends Observable{
+  var X = x
+  var Y = y
+  var health = 1000
+  val range = 100
+  val repFunction = reproductive
+  val illFunction = ilnesses 
+  val group = Group
+  
+  def generateReadiness = {
+    -range + rnd.nextInt(range-70) == -range + rnd.nextInt(range-70)
+  }
+  
+  def generateIlnesses = {
+    -range + rnd.nextInt(range+2) == -range + rnd.nextInt(range+2)
+  }
+  
+  def randomMove = {
+    val moveStep_forX = -1 + rnd.nextInt(3)
+    val moveStep_forY = -1 + rnd.nextInt(3)
+    X = X + moveStep_forX
+    Y = Y + moveStep_forY
+    health = health - 1
+  }
+  
+  def takeHealth = health = health / 2
+
+  def giveBirth = {
+    new Creature(X, Y, true, true, group)
+  }
+}
+
+class Window[T >: Observable](objects: Seq[T]){
+  val objectsSeq = objects
+  def sss = objectsSeq.size
+  def showObjects = {
+    for(obj <- objectsSeq) yield {
+      obj match{
+        case obj: Creature => {
+          color(obj.group)
+          fillRect(obj.X, obj.Y, 3, 3)
+        }
+        // case obj: Food => {
+        //   color("green")
+        //   fillRect(obj.coordinates._1, obj.coordinates._2, 1, 1)
+        // }
+        case _ => {
+          println(s"Something else")
+        }
+      }
+    }
+  }
+  
+  def showWindow = {
+    color("black")
+    fillRect(0,0,700,700)
+    }
+  def cleanWindow = {
+    color("black")
+    fillRect(0, 0, 700, 700)
+  }
+}
+
+var creatures = Seq(new Creature(349,349,true,true,"yellow"),
+                    new Creature(349,349,true,true,"blue"),
+                    new Creature(349,349,true,true,"green"),
+                    new Creature(349,349,true,true,"pink"),
+                    new Creature(349,349,true,true,"red"),
+                    new Creature(349,349,true,true,"orange"))
+var window = new Window(creatures)
+
+def system = Fiddle.schedule(10){
+  Fiddle.scheduleOnce(1)(window.showWindow)
+  Fiddle.scheduleOnce(4){
+    for(creature <- creatures) yield {
+    creature.randomMove
+    }
+    window.showObjects
+  }
+  Fiddle.scheduleOnce(7){
+    val newCreatures = 
+    for{
+      creature <- creatures
+      if creature.repFunction == true
+      if creature.generateReadiness == true
+    } yield {
+      creature.takeHealth
+      creature.giveBirth
+    }
+    creatures = creatures.filter{
+      element => 
+      if(element.health <= 0 || 
+      (element.illFunction == true && element.generateIlnesses == true) || 
+      element.X < 0 ||
+      element.X > 700 ||
+      element.Y < 0 ||
+      element.Y > 700){false}
+      else{true}
+    }.toSeq ++ newCreatures
+    window = new Window(creatures)
+  }
+  Fiddle.scheduleOnce(9){
+    window.cleanWindow
+    println(creatures.size)
+    if(creatures.size > 10000) creatures = creatures.slice(0,5000)
+  }
+}
+
+system
+
+// Fiddle.schedule(1)(player1.becomeAlive)
+// Fiddle.schedule(2)(player2.becomeAlive)
