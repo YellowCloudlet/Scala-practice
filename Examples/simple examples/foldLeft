@@ -1,4 +1,4 @@
-//oldLeft with infinity
+//foldLeft with infinity
 val list = List[Double](Double.PositiveInfinity, 1)
 val res = list.foldLeft(List.empty[Int]) {
   case (acc, i) if i == i + 1 => acc :+ 1
