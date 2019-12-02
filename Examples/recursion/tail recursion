@@ -1,0 +1,4 @@
+def sum(l: List[Int], acc: Int = 0): Int = l match {
+  case Nil => acc
+  case head::tail => sum(tail,acc+head)
+}
