@@ -1,5 +1,0 @@
-@tailrec
-  def max(xs: List[Int], maximal: Int = 0): Int = if (maximal == 0) throw java.util.NoSuchElementException else xs match {
-    case Nil => maximal
-    case head::tail => if (head > maximal) max(tail, head) else max(tail, maximal)
-  }
