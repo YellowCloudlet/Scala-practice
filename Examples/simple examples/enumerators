@@ -6,4 +6,4 @@ object Test extends Enumeration {
   val SomeValue = testVal(12, 3)
 }  
 
-println(Test.values)
+Test.values
